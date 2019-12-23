@@ -2,10 +2,13 @@
     import SimpleStream from './SimpleStream.svelte';
     import RaisedButton from './RaisedButton.svelte';
     import NowPlayingControl from './NowPlayingControl.svelte';
+    import Navigation from './Navigation.svelte';
 
     let nowPlaying = {};
+    let currentPage = 'main';
 
     $: nowPlayingData = streams.filter((el) => el.name === nowPlaying.name)[0];
+    $: mainPageHideClass = currentPage === 'main' ? '' : 'hidden';
 
     const streams = [
         {
@@ -66,6 +69,14 @@
         }
         nowPlaying = {};
     }
+
+    function showHukamnama(event) {
+        currentPage = 'hukamnama';
+    }
+
+    function handleBackClicked(event) {
+        currentPage = 'main';
+    }
 </script>
 
 <style lang="scss">
@@ -84,11 +95,15 @@
         }
     }
 
-	.list-container {
+	.container {
         padding: 16px;
         padding-bottom: 86px;
         margin: 0 auto;
         max-width: 800px;
+
+        &.hidden {
+            display: none;
+        }
 	}
 
     main {
@@ -99,7 +114,7 @@
 </style>
 
 <main>
-    <div class="list-container">
+    <div class="container {mainPageHideClass}">
         <div class="page-title">
             <img src="/icons/icon_144.png" alt=""/>
             <div>hrmMidr swihb</div>
@@ -108,8 +123,16 @@
         {#each streams as stream (stream.name)}
             <SimpleStream {...stream} on:startedPlaying={handleStartedPlaying}/>
         {/each}
-        <RaisedButton text="hukmnwmw pVHo" language="punjabi"/>
+
+        <RaisedButton text="hukmnwmw pVHo" language="punjabi" on:click={showHukamnama} />
     </div>
+
+    {#if currentPage === 'hukamnama'}
+        <Navigation name="hukmnwmw" language="punjabi" on:backClicked={handleBackClicked}/>
+        <div class="container">
+            hukamnama
+        </div>
+    {/if}
 
     {#if nowPlaying.name}
         <NowPlayingControl on:stopClicked={handleStop} {...nowPlayingData}/>
