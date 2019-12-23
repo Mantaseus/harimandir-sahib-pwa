@@ -26,7 +26,7 @@
         background-color: white;
         width: 100%;
         z-index: 50;
-        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
 
         display: flex;
         flex-direction: row;
