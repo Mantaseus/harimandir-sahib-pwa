@@ -4,8 +4,8 @@
     const dispatch = createEventDispatcher();
 
     export let name = 'Stream';
-    export let url;
-    export let image;
+    export let url = '';
+    export let getUrl;
     export let language = '';
 
     let audioElement;
@@ -19,7 +19,11 @@
 
         console.log('Starting');
 
-        src = url;
+        if (url) {
+            src = url;
+        } else if (getUrl) {
+            src = getUrl();
+        }
 
         // Wait for UI update and ask the audioElement to load the stream and start playing
         await tick();
@@ -56,6 +60,7 @@
         align-items: center;
         background-color: white;
         padding: 10px 20px;
+        box-sizing: border-box;
 
         border: 1px solid #ddd;
         border-radius: 0.5em;

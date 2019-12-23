@@ -1,5 +1,6 @@
 <script>
     import SimpleStream from './SimpleStream.svelte';
+    import RaisedButton from './RaisedButton.svelte';
     import NowPlayingControl from './NowPlayingControl.svelte';
 
     let nowPlaying = {};
@@ -10,17 +11,45 @@
         {
             name: 'lwev suxo',
             language: 'punjabi',
-            url: 'http://sgpc.net/live-kirtan-sri-harmandir-sahib-96-kbps/',
+            getUrl: () => {
+                return 'http://sgpc.net:8000/;'
+            }
         },
         {
             name: 'hukmnwmw suxo',
             language: 'punjabi',
-            url: 'http://sgpc.net/mukhwak-audio-2/',
+            getUrl: () => {
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.getMonth() + 1;
+                const year = today.getFullYear();
+
+                // The date string needs to be '250619' for 25th of June 2019
+                const dayString = day.toString().padStart(2,'0');
+                const monthString = month.toString().padStart(2,'0');
+                const yearString = year.toString().slice(-2);
+
+                const streamLink = `http://old.sgpc.net/audio/SGPCNET${dayString}${monthString}${yearString}.mp3`;
+                return streamLink;
+            }
         },
         {
             name: 'kQw suxo',
             language: 'punjabi',
-            url: 'http://sgpc.net/mukhwak-audio-2/',
+            getUrl: () => {
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.getMonth() + 1;
+                const year = today.getFullYear();
+
+                // The date string needs to be '250619' for 25th of June 2019
+                const dayString = day.toString().padStart(2,'0');
+                const monthString = month.toString().padStart(2,'0');
+                const yearString = year.toString().slice(-2);
+
+                const streamLink = `http://old.sgpc.net/katha/katha${dayString}${monthString}${yearString}.mp3`;
+                return streamLink;
+            }
         },
     ]
 
@@ -39,11 +68,20 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .page-title {
         font-family: Amrlipi;
         padding-bottom: 16px;
         font-size: 2em;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        img {
+            width: 80px;
+            margin-right: 10px;
+        }
     }
 
 	.list-container {
@@ -55,18 +93,22 @@
 
     main {
         display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 </style>
 
 <main>
     <div class="list-container">
         <div class="page-title">
-            hrmMidr swihb
+            <img src="/icons/icon_144.png" alt=""/>
+            <div>hrmMidr swihb</div>
         </div>
 
         {#each streams as stream (stream.name)}
             <SimpleStream {...stream} on:startedPlaying={handleStartedPlaying}/>
         {/each}
+        <RaisedButton text="hukmnwmw pVHo" language="punjabi"/>
     </div>
 
     {#if nowPlaying.name}

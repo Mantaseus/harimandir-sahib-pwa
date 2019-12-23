@@ -1,0 +1,38 @@
+<script>
+    import { createEventDispatcher, tick } from 'svelte';
+
+    export let text = '<placeholder>';
+    export let language;
+</script>
+
+<style lang="scss">
+    .container {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: white;
+        padding: 10px 20px;
+        box-sizing: border-box;
+
+        border: 1px solid #ddd;
+        border-radius: 0.5em;
+        border-bottom-width: 4px;
+
+        margin-bottom:16px;
+
+        &:focus {
+            border-bottom-width: 1px;
+            margin-top: 3px;
+        }
+    }
+
+    .punjabi {
+        font-family: "AmrLipi";
+        font-size: 1.2em;
+    }
+</style>
+
+<div on:click class="container {language}">
+    {text}
+</div>

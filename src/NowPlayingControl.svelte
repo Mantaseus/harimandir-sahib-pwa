@@ -28,6 +28,8 @@
         box-sizing: border-box;
 
         padding: 10px;
+        padding-left: 20px;
+        height: 70px;
     }
 
     .name {
@@ -57,7 +59,6 @@
 </style>
 
 <div class="container">
-    <img src={image} alt={name}/>
     <div class="name {language}">{name}</div>
     <div class="stop-button" on:click={handleClick}></div>
 </div>
