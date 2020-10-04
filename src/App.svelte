@@ -8,6 +8,9 @@
     let currentPage = 'main';
 
     $: nowPlayingData = streams.filter((el) => el.name === nowPlaying.name)[0];
+
+    // This is used to hide the main page but prevent the stream elements from being removed
+    // allowing the stream to keep running
     $: mainPageHideClass = currentPage === 'main' ? '' : 'hidden';
 
     const streams = [
