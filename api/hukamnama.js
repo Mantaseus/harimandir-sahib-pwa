@@ -1,5 +1,6 @@
 import {parse} from 'node-html-parser';
 import http from 'http';
+import {StringDecoder} from 'string_decoder';
 
 function parseMukhvaak(html){
     const fontElements = html.querySelectorAll('font');
@@ -70,7 +71,9 @@ module.exports = (request, response) => {
         })
         res.on('end', () => {
             if(data) {
-                response.json(parseMukhvaak(parse(data)));
+                const decoder = new StringDecoder('latin1');
+                const decodedHtml = decoder.end(Buffer.from(data, 'latin1'));
+                response.json(parseMukhvaak(parse(decodedHtml)));
             } else {
                 response.json({
                     error: true,
