@@ -50,30 +50,25 @@ function parseMukhvaak(html){
     const paraElements = html.querySelectorAll('p font')
         .map(el => el.rawText.trim())
 
+    const mukhvaakIndex = 1;
+    const punjabiTranslationIndex = tableElements.findIndex(el => /^\(?AMg/ig.test(el));
+    const englishTranslationIndex = tableElements.findIndex(el => /English\s+Translation/ig.test(el));
+
     return {
         mukhvaak: {
-            titles: tableElements.slice(
-                1,
-                tableElements.findIndex(el => el.startsWith('(AMg:')) - 1
-            ),
+            titles: tableElements.slice(mukhvaakIndex, punjabiTranslationIndex - 1),
             body: paraElements[0],
         },
         punjabiTranslation: {
-            titles: tableElements.slice(
-                tableElements.findIndex(el => el.startsWith('(AMg:')) + 1,
-                tableElements.findIndex(el => /English\s+Translation/g.test(el))
-            ),
+            titles: tableElements.slice(punjabiTranslationIndex + 1, englishTranslationIndex),
             body: paraElements[1],
         },
         englishTranslation: {
-            titles: tableElements.slice(
-                tableElements.findIndex(el => /English\s+Translation/g.test(el)) + 1,
-                -2
-            ),
+            titles: tableElements.slice(englishTranslationIndex + 1, -2),
             body: paraElements[2],
         },
         date: {
-            punjabi: tableElements[tableElements.findIndex(el => el.startsWith('(AMg:')) - 1],
+            punjabi: tableElements[punjabiTranslationIndex - 1],
             english: tableElements[tableElements.length - 2],
         },
         pageNumber: Number(tableElements[tableElements.length - 1].match(/\d+/)),
