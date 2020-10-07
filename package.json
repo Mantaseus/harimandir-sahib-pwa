@@ -19,6 +19,7 @@
     "svelte": "^3.29.0"
   },
   "dependencies": {
+    "lodash": "^4.17.20",
     "node-html-parser": "^1.2.21",
     "sirv-cli": "^1.0.1"
   }

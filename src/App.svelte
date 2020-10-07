@@ -4,6 +4,7 @@
     import RaisedButton from './RaisedButton.svelte';
     import NowPlayingControl from './NowPlayingControl.svelte';
     import Navigation from './Navigation.svelte';
+    import Hukamnama from './Hukamnama.svelte';
 
     let nowPlaying = {};
     let currentPage = 'main';
@@ -154,7 +155,7 @@
     {#if currentPage === 'hukamnama'}
         <Navigation name="hukmnwmw" language="punjabi" on:backClicked={handleBackClicked}/>
         <div class="container">
-            hukamnama
+            <Hukamnama/>
         </div>
     {/if}
 
