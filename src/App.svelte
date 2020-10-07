@@ -1,4 +1,5 @@
 <script>
+    import {onMount} from 'svelte';
     import SimpleStream from './SimpleStream.svelte';
     import RaisedButton from './RaisedButton.svelte';
     import NowPlayingControl from './NowPlayingControl.svelte';
@@ -12,6 +13,14 @@
     // This is used to hide the main page but prevent the stream elements from being removed
     // allowing the stream to keep running
     $: mainPageHideClass = currentPage === 'main' ? '' : 'hidden';
+
+    window.onpopstate = (event) => {
+        setPageFromLocationHash();
+    }
+
+    onMount(() => {
+        setPageFromLocationHash();
+    })
 
     const streams = [
         {
@@ -59,6 +68,17 @@
         },
     ]
 
+    function setPageFromLocationHash() {
+        switch(location.hash) {
+            case '#hukamnama':
+                currentPage = 'hukamnama';
+                break;
+            default:
+                currentPage = 'main';
+                break;
+        }
+    }
+
     function handleStartedPlaying(event) {
         handleStop();
         const playingStreamData = streams.filter((el) => el.name === event.detail.name);
@@ -75,10 +95,11 @@
 
     function showHukamnama(event) {
         currentPage = 'hukamnama';
+        history.pushState(null, null, '#hukamnama');
     }
 
     function handleBackClicked(event) {
-        currentPage = 'main';
+        history.back();
     }
 </script>
 

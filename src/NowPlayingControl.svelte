@@ -3,7 +3,7 @@
 
     export let name = '';
     export let language = '';
-    export let image = '';
+    // export let image = '';
 
     const dispatch = createEventDispatcher();
 
