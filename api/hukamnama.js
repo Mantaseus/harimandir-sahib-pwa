@@ -1,6 +1,6 @@
 import {parse} from 'node-html-parser';
 import http from 'http';
-import {StringDecoder} from 'string_decoder';
+import iconv from 'iconv-lite';
 
 function parseMukhvaak(html){
     /*
@@ -86,15 +86,16 @@ module.exports = (request, response) => {
     console.log(options)
 
     const req = http.request(options, res => {
-        let data = '';
-        res.on('data', (chunk) => {
-            data += chunk
-        })
-        res.on('end', () => {
+        res.pipe(iconv.decodeStream('windows-1252')).collect((err, data) => {
             if(data) {
-                const decoder = new StringDecoder('latin1');
-                const decodedHtml = decoder.end(Buffer.from(data, 'latin1'));
-                response.json(parseMukhvaak(parse(decodedHtml)));
+                try {
+                    response.json(parseMukhvaak(parse(data)));
+                } catch (e) {
+                    response.json({
+                        error: true,
+                        reason: `Failed to parce hukamnama from source: {e}`,
+                    })
+                }
             } else {
                 response.json({
                     error: true,
