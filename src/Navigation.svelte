@@ -67,6 +67,7 @@
         height: 25px;
         margin-right: 20px;
         font-size: 1.4em;
+        cursor: pointer;
     }
 </style>
 
