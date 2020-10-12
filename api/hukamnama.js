@@ -89,11 +89,15 @@ module.exports = (request, response) => {
         res.pipe(iconv.decodeStream('windows-1252')).collect((err, data) => {
             if(data) {
                 try {
-                    response.json(parseMukhvaak(parse(data)));
+                    response.json(parseMukhvaak(parse(
+                        // Sometimes, an HTML response may have a weird email protection link thing
+                        // embedded in the text. So, this tries to remove it
+                        data.replace(/\[email.*protected\]/, '')
+                    )));
                 } catch (e) {
                     response.json({
                         error: true,
-                        reason: `Failed to parce hukamnama from source: {e}`,
+                        reason: `Failed to parce hukamnama from source: ${e}`,
                     })
                 }
             } else {

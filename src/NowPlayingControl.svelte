@@ -12,7 +12,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .container {
         background-color: white;
         position: fixed;
@@ -30,6 +30,10 @@
         padding: 10px;
         padding-left: 20px;
         height: 70px;
+
+        @media screen and (max-width: 839px) {
+            font-size: 1.25em;
+        }
     }
 
     .name {

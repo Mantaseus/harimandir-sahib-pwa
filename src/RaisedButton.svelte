@@ -25,11 +25,19 @@
             border-bottom-width: 1px;
             margin-top: 3px;
         }
+
+        @media screen and (max-width: 839px) {
+            font-size: 1.25em;
+        }
     }
 
     .punjabi {
         font-family: "AmrLipi";
         font-size: 1.2em;
+
+        @media screen and (max-width: 839px) {
+            font-size: 1.5em;
+        }
     }
 </style>
 

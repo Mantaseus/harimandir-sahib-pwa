@@ -21,7 +21,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
     .container {
         background-color: white;
         width: 100%;
@@ -36,6 +36,13 @@
         padding: 10px;
         padding-left: 20px;
         height: 70px;
+
+        position: sticky;
+        top: 0;
+
+        @media screen and (max-width: 839px) {
+            font-size: 1.25em;
+        }
     }
 
     .name {
@@ -58,12 +65,12 @@
     .icon {
         width: 25px;
         height: 25px;
-        background-color: black;
         margin-right: 20px;
+        font-size: 1.4em;
     }
 </style>
 
 <div class="container">
-    <div class="icon" on:click={handleClick}></div>
+    <i class="material-icons icon" on:click={handleClick}>arrow_back</i>
     <div class="name {language}">{title}</div>
 </div>
