@@ -28,7 +28,7 @@
             name: 'lwev suxo',
             language: 'punjabi',
             getUrl: () => {
-                return 'http://sgpc.net:8000/;'
+                return 'http://live16.sgpc.net:8000/;'
             }
         },
         {
@@ -63,7 +63,7 @@
                 const monthString = month.toString().padStart(2,'0');
                 const yearString = year.toString().slice(-2);
 
-                const streamLink = `http://old.sgpc.net/katha/katha${dayString}${monthString}${yearString}.mp3`;
+                const streamLink = `http://old.sgpc.net/oldkatha/katha${dayString}${monthString}${yearString}.mp3`;
                 return streamLink;
             }
         },
