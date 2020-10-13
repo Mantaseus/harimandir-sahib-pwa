@@ -28,7 +28,7 @@
             name: 'lwev suxo',
             language: 'punjabi',
             getUrl: () => {
-                return 'http://live16.sgpc.net:8000/;'
+                return 'http://live16.sgpc.net:8000/;nocache=889869'
             }
         },
         {
