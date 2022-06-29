@@ -1,5 +1,5 @@
 <script>
-  import _ from 'lodash';
+  import isEmpty from 'lodash/isEmpty';
 
   export let date = new Date();
 
@@ -74,7 +74,7 @@
   <div class="centered punjabi loader">Ç</div>
   <div class="centered punjabi">lof ho irhw hY</div>
 {:then hukamnama}
-  {#if !_.isEmpty(hukamnama)}
+  {#if !isEmpty(hukamnama)}
     {#each hukamnama.mukhvaak.titles as title}
       <h3 class="centered punjabi">{title}</h3>
     {/each}
