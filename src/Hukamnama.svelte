@@ -24,14 +24,17 @@
     }
 </script>
 
-<style lang="scss">
+<style>
     div, h3 {
         font-size: 1.2em;
-        @media screen and (max-width: 839px) {
+    }
+    @media screen and (max-width: 839px) {
+        div, h3 {
             font-size: 1.75em;
             padding: 0 0.5em;
         }
     }
+
     .punjabi {
         font-family: "AmrLipi";
     }

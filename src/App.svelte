@@ -104,38 +104,36 @@
     }
 </script>
 
-<style lang="scss">
-    .page-title {
-        font-family: Amrlipi;
-        padding-bottom: 16px;
-        font-size: 2em;
+<style>
+  .page-title {
+    font-family: Amrlipi;
+    padding-bottom: 16px;
+    font-size: 2em;
 
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        img {
-            width: 80px;
-            margin-right: 10px;
-        }
-    }
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .page-title img {
+    width: 80px;
+    margin-right: 10px;
+  }
 
 	.container {
-        padding: 16px;
-        padding-bottom: 86px;
-        margin: 0 auto;
-        max-width: 800px;
-
-        &.hidden {
-            display: none;
-        }
+    padding: 16px;
+    padding-bottom: 86px;
+    margin: 0 auto;
+    max-width: 800px;
 	}
+  .container.hidden {
+    display: none;
+  }
 
-    main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
 
 <main>

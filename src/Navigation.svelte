@@ -21,7 +21,7 @@
     }
 </script>
 
-<style lang="scss">
+<style>
     .container {
         background-color: white;
         width: 100%;
@@ -39,8 +39,9 @@
 
         position: sticky;
         top: 0;
-
-        @media screen and (max-width: 839px) {
+    }
+    @media screen and (max-width: 839px) {
+        .container {
             font-size: 1.25em;
         }
     }

@@ -5,7 +5,7 @@
     export let language;
 </script>
 
-<style lang="scss">
+<style>
     .container {
         width: 100%;
         display: inline-flex;
@@ -20,13 +20,13 @@
         border-bottom-width: 4px;
 
         margin-bottom:16px;
-
-        &:focus {
-            border-bottom-width: 1px;
-            margin-top: 3px;
-        }
-
-        @media screen and (max-width: 839px) {
+    }
+    .container:focus {
+        border-bottom-width: 1px;
+        margin-top: 3px;
+    }
+    @media screen and (max-width: 839px) {
+        .container {
             font-size: 1.25em;
         }
     }
@@ -35,7 +35,9 @@
         font-family: "AmrLipi";
         font-size: 1.2em;
 
-        @media screen and (max-width: 839px) {
+    }
+    @media screen and (max-width: 839px) {
+        .punjabi {
             font-size: 1.5em;
         }
     }
