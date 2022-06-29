@@ -1,48 +1,48 @@
 <script>
-    import { createEventDispatcher, tick } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
 
-    export let text = '<placeholder>';
-    export let language;
+  export let text = '<placeholder>';
+  export let language;
 </script>
 
 <style>
+  .container {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    box-sizing: border-box;
+
+    border: 1px solid #ddd;
+    border-radius: 0.5em;
+    border-bottom-width: 4px;
+
+    margin-bottom:16px;
+  }
+  .container:focus {
+    border-bottom-width: 1px;
+    margin-top: 3px;
+  }
+  @media screen and (max-width: 839px) {
     .container {
-        width: 100%;
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        background-color: white;
-        padding: 10px 20px;
-        box-sizing: border-box;
-
-        border: 1px solid #ddd;
-        border-radius: 0.5em;
-        border-bottom-width: 4px;
-
-        margin-bottom:16px;
+      font-size: 1.25em;
     }
-    .container:focus {
-        border-bottom-width: 1px;
-        margin-top: 3px;
-    }
-    @media screen and (max-width: 839px) {
-        .container {
-            font-size: 1.25em;
-        }
-    }
+  }
 
+  .punjabi {
+    font-family: "AmrLipi";
+    font-size: 1.2em;
+
+  }
+  @media screen and (max-width: 839px) {
     .punjabi {
-        font-family: "AmrLipi";
-        font-size: 1.2em;
-
+      font-size: 1.5em;
     }
-    @media screen and (max-width: 839px) {
-        .punjabi {
-            font-size: 1.5em;
-        }
-    }
+  }
 </style>
 
 <div on:click class="container {language}">
-    {text}
+  {text}
 </div>
