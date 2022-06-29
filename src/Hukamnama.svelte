@@ -1,17 +1,9 @@
 <script>
-  import {onMount} from 'svelte';
   import _ from 'lodash';
 
   export let date = new Date();
 
-  let loading = false;
-  let hukamnama = {};
-
-  onMount(async () => {
-    loading = true;
-    hukamnama = await getHukamnama();
-    loading = false;
-  })
+  let hukamnamaPromise = getHukamnama();
 
   async function getHukamnama() {
     const day = date.getDate();
@@ -19,7 +11,7 @@
     const year = date.getFullYear();
 
     return fetch(`/api/hukamnama?day=${day}&month=${month}&year=${year}`, { method: 'GET' })
-      .then(res => res.json())
+      .then(res => res.text())
   }
 </script>
 
@@ -63,12 +55,25 @@
     margin: 3em 0 1em 0;
     animation: 1s ease-in-out infinite loader-anim alternate;
   }
+
+  .error-container {
+    background-color: rgba(255, 218, 218);
+    color: rgb(175, 66, 66);
+    border: 1px solid rgb(175, 66, 66);
+    border-radius: 0.5em;
+    padding: 1em;
+    max-width: 25em;
+  }
+  .error-container .title {
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
 </style>
 
-{#if loading}
+{#await hukamnamaPromise}
   <div class="centered punjabi loader">Ç</div>
   <div class="centered punjabi">lof ho irhw hY</div>
-{:else}
+{:then hukamnama}
   {#if !_.isEmpty(hukamnama)}
     {#each hukamnama.mukhvaak.titles as title}
       <h3 class="centered punjabi">{title}</h3>
@@ -87,4 +92,9 @@
     {/each}
     <div class="justified">{hukamnama.englishTranslation.body}</div>
   {/if}
-{/if}
+{:catch error}
+  <div class="error-container">
+    <div class="title">Error while loading (TODO: Punjabi)</div>
+    <div>{String(error)}</div>
+  </div>
+{/await}
