@@ -1,4 +1,5 @@
 import http from 'http';
+import iconv from 'iconv-lite';
 
 function parseMukhvaak(html){
   /*
@@ -83,7 +84,7 @@ module.exports = (request, response) => {
   }
   console.log(options);
 
-  http.request(options, res => res.pipe(response, { end: true }))
+  http.request(options, res => res.pipe(iconv.decodeStream('windows-1252')).pipe(response, { end: true }))
     .on('error', console.error)
     .end();
 };
