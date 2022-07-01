@@ -12,6 +12,40 @@
 
     return fetch(`/api/hukamnama?day=${day}&month=${month}&year=${year}`, { method: 'GET' })
       .then(res => res.text())
+      .then(text => new DOMParser().parseFromString(text, 'text/html'))
+      .then(res => { console.log({ textAsHTML: res }); return res; })
+      .then(html => parseMukhvaak(html))
+      .then(res => { console.log({ parsedHukamnama: res }); return res; });
+  }
+
+  function textOfElements(html, selector) {
+    return Array.from(html.querySelectorAll(selector)).map(el => el.innerText.trim());
+  }
+
+  function parseMukhvaak(html){
+    const [ punjabiDate, punjabiPage, englishDate, englishPage ] = textOfElements(html, 'center > div > table font');
+    return {
+      mukhvaak: {
+        titles: textOfElements(html, 'center > center td font > font'),
+        body: textOfElements(html, 'center > center p'),
+      },
+      punjabiTranslation: {
+        titles: textOfElements(html, 'center > div > center table:nth-of-type(1) font'),
+        body: textOfElements(html, 'center > div > center p:nth-of-type(1)'),
+      },
+      englishTranslation: {
+        titles: textOfElements(html, 'center > div > center table:nth-of-type(2) div[align="center"] font'),
+        body: textOfElements(html, 'center > div > center p:nth-of-type(2)'),
+      },
+      date: {
+        punjabi: punjabiDate,
+        english: englishDate,
+      },
+      page: {
+        punjabi: punjabiPage,
+        english: englishPage
+      },
+    };
   }
 </script>
 
