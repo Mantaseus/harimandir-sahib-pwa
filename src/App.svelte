@@ -1,65 +1,163 @@
-<script lang="ts">
-  import logo from './assets/svelte.png'
-  import Counter from './lib/Counter.svelte'
+<script>
+  import {onMount} from 'svelte';
+  import SimpleStream from './lib/SimpleStream.svelte';
+  import RaisedButton from './lib/RaisedButton.svelte';
+  import NowPlayingControl from './lib/NowPlayingControl.svelte';
+  import Navigation from './lib/Navigation.svelte';
+  import Hukamnama from './lib/Hukamnama.svelte';
+
+  let nowPlaying = {};
+  let currentPage = 'main';
+
+  $: nowPlayingData = streams.filter((el) => el.name === nowPlaying.name)[0];
+
+  // This is used to hide the main page but prevent the stream elements from being removed
+  // allowing the stream to keep running
+  $: mainPageHideClass = currentPage === 'main' ? '' : 'hidden';
+
+  window.onpopstate = (event) => {
+    setPageFromLocationHash();
+  }
+
+  onMount(() => {
+    setPageFromLocationHash();
+  })
+
+  const streams = [
+    {
+      name: 'lwev suxo',
+      language: 'punjabi',
+      getUrl: () => {
+        return 'http://live16.sgpc.net:8000/;nocache=889869'
+      }
+    },
+    {
+      name: 'hukmnwmw suxo',
+      language: 'punjabi',
+      getUrl: () => {
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
+
+        // The date string needs to be '250619' for 25th of June 2019
+        const dayString = day.toString().padStart(2,'0');
+        const monthString = month.toString().padStart(2,'0');
+        const yearString = year.toString().slice(-2);
+
+        const streamLink = `http://old.sgpc.net/audio/SGPCNET${dayString}${monthString}${yearString}.mp3`;
+        return streamLink;
+      }
+    },
+    {
+      name: 'kQw suxo',
+      language: 'punjabi',
+      getUrl: () => {
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth() + 1;
+        const year = today.getFullYear();
+
+        // The date string needs to be '250619' for 25th of June 2019
+        const dayString = day.toString().padStart(2,'0');
+        const monthString = month.toString().padStart(2,'0');
+        const yearString = year.toString().slice(-2);
+
+        const streamLink = `http://old.sgpc.net/oldkatha/katha${dayString}${monthString}${yearString}.mp3`;
+        return streamLink;
+      }
+    },
+  ]
+
+  function setPageFromLocationHash() {
+    switch(location.hash) {
+      case '#hukamnama':
+        currentPage = 'hukamnama';
+        break;
+      default:
+        currentPage = 'main';
+        break;
+    }
+  }
+
+  function handleStartedPlaying(event) {
+    handleStop();
+    const playingStreamData = streams.filter((el) => el.name === event.detail.name);
+    console.log(playingStreamData);
+    nowPlaying = event.detail;
+  }
+
+  function handleStop(event) {
+    if (nowPlaying.name) {
+      nowPlaying.stop();
+    }
+    nowPlaying = {};
+  }
+
+  function showHukamnama(event) {
+    currentPage = 'hukamnama';
+    history.pushState(null, null, '#hukamnama');
+  }
+
+  function handleBackClicked(event) {
+    history.back();
+  }
 </script>
 
-<main>
-  <img src={logo} alt="Svelte Logo" />
-  <h1>Hello Typescript!</h1>
-
-  <Counter />
-
-  <p>
-    Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
-    apps.
-  </p>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme">SvelteKit</a> for
-    the officially supported framework, also powered by Vite!
-  </p>
-</main>
-
 <style>
-  :root {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  .page-title {
+  font-family: Amrlipi;
+  padding-bottom: 16px;
+  font-size: 2em;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  }
+  .page-title img {
+  width: 80px;
+  margin-right: 10px;
+  }
+
+	.container {
+  padding: 16px;
+  padding-bottom: 86px;
+  margin: 0 auto;
+  max-width: 800px;
+	}
+  .container.hidden {
+  display: none;
   }
 
   main {
-    text-align: center;
-    padding: 1em;
-    margin: 0 auto;
-  }
-
-  img {
-    height: 16rem;
-    width: 16rem;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4rem;
-    font-weight: 100;
-    line-height: 1.1;
-    margin: 2rem auto;
-    max-width: 14rem;
-  }
-
-  p {
-    max-width: 14rem;
-    margin: 1rem auto;
-    line-height: 1.35;
-  }
-
-  @media (min-width: 480px) {
-    h1 {
-      max-width: none;
-    }
-
-    p {
-      max-width: none;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   }
 </style>
+
+<main>
+  <div class="container {mainPageHideClass}">
+    <div class="page-title">
+      <img src="/icons/icon_144.png" alt=""/>
+      <div>hrmMidr swihb</div>
+    </div>
+
+    {#each streams as stream (stream.name)}
+      <SimpleStream {...stream} on:startedPlaying={handleStartedPlaying}/>
+    {/each}
+
+    <RaisedButton text="hukmnwmw pVHo" language="punjabi" on:click={showHukamnama} />
+  </div>
+
+  {#if currentPage === 'hukamnama'}
+    <Navigation name="hukmnwmw" language="punjabi" on:backClicked={handleBackClicked}/>
+    <div class="container">
+      <Hukamnama/>
+    </div>
+  {/if}
+
+  {#if nowPlaying.name}
+    <NowPlayingControl on:stopClicked={handleStop} {...nowPlayingData}/>
+  {/if}
+</main>
