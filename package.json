@@ -20,5 +20,8 @@
     "typescript": "^4.5.4",
     "vercel": "^25.2.2",
     "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.3"
   }
 }
