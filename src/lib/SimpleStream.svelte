@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher, tick } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
   export let name = 'Stream';
   export let url = '';
-  export let getUrl;
+  export let getUrl: () => string;
   export let language = '';
 
-  let audioElement;
+  let audioElement: HTMLAudioElement;
   let stopped = true;
   let src = ''
 

@@ -1,6 +1,4 @@
-<script>
-  import { createEventDispatcher, tick } from 'svelte';
-
+<script lang="ts">
   export let text = '<placeholder>';
   export let language;
 </script>

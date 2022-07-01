@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
   import {createEventDispatcher} from 'svelte';
 
   export let name = '';
   export let language = '';
-  // export let image = '';
 
   const dispatch = createEventDispatcher();
 
