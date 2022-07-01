@@ -32,7 +32,6 @@
   }
 
   .punjabi {
-    font-family: "AmrLipi";
     font-size: 1.2em;
 
   }

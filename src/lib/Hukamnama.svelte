@@ -60,9 +60,6 @@
     }
   }
 
-  .punjabi {
-    font-family: "AmrLipi";
-  }
   .centered {
     text-align: center;
   }
