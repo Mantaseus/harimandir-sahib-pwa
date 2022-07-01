@@ -21,7 +21,6 @@
   "dependencies": {
     "iconv-lite": "^0.6.2",
     "lodash": "^4.17.20",
-    "node-html-parser": "^1.2.21",
     "sirv-cli": "^1.0.1"
   }
 }
