@@ -54,14 +54,6 @@
     font-family: "AmrLipi";
     font-size: 1.2em;
   } 
-  img {
-    height: 100%;
-    object-fit: contain;
-    display: inline-block;
-    margin-right: 20px;
-    width: 50px;
-    height: 50px;
-  }
 
   .icon {
     width: 25px;
