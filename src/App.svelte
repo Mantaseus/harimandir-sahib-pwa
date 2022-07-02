@@ -2,7 +2,7 @@
   import {onMount} from 'svelte';
   import SimpleStream, { Events as SimpleStreamEvents } from './lib/SimpleStream.svelte';
   import RaisedButton from './lib/RaisedButton.svelte';
-  import NowPlayingControl, { Events as NowPlayingControlEvents } from './lib/NowPlayingControl.svelte';
+  import NowPlayingControl from './lib/NowPlayingControl.svelte';
   import Navigation from './lib/Navigation.svelte';
   import Hukamnama from './lib/Hukamnama.svelte';
   import type { StreamData } from './types';
@@ -16,7 +16,7 @@
   // allowing the stream to keep running
   $: mainPageHideClass = currentPage === 'main' ? '' : 'hidden';
 
-  window.onpopstate = (event) => {
+  window.onpopstate = () => {
     setPageFromLocationHash();
   }
 
