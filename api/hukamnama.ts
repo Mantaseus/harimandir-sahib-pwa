@@ -1,7 +1,8 @@
 import http from 'http';
 import iconv from 'iconv-lite';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-module.exports = (request, response) => {
+module.exports = (request: VercelRequest, response: VercelResponse) => {
   const { query: {day, month, year} } = request;
 
   const options = {

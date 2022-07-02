@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import isEmpty from 'lodash/isEmpty';
 
   export let date = new Date();
@@ -18,11 +18,11 @@
       .then(res => { console.log({ parsedHukamnama: res }); return res; });
   }
 
-  function textOfElements(html, selector) {
-    return Array.from(html.querySelectorAll(selector)).map(el => el.innerText.trim());
+  function textOfElements(html: Document, selector: string) {
+    return Array.from<HTMLElement>(html.querySelectorAll(selector)).map(el => el.innerText.trim());
   }
 
-  function parseMukhvaak(html){
+  function parseMukhvaak(html: Document){
     const [ punjabiDate, punjabiPage, englishDate, englishPage ] = textOfElements(html, 'center > div > table font');
     return {
       mukhvaak: {
@@ -60,9 +60,6 @@
     }
   }
 
-  .punjabi {
-    font-family: "AmrLipi";
-  }
   .centered {
     text-align: center;
   }

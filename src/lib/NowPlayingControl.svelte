@@ -1,13 +1,20 @@
-<script>
+<script lang="ts" context="module">
+  export interface Events {
+    stopClicked: {};
+  }
+</script>
+
+<script lang="ts">
   import {createEventDispatcher} from 'svelte';
 
+  import type { Language } from '../types';
+
   export let name = '';
-  export let language = '';
-  // export let image = '';
+  export let language: Language = 'english';
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<Events>();
 
-  function handleClick(e) {
+  function handleClick() {
     dispatch('stopClicked', {});
   }
 </script>
@@ -43,17 +50,7 @@
   }
 
   .punjabi {
-    font-family: "AmrLipi";
     font-size: 1.2em;
-  }
-
-  img {
-    height: 100%;
-    object-fit: contain;
-    display: inline-block;
-    margin-right: 20px;
-    width: 50px;
-    height: 50px;
   }
 
   .stop-button {
