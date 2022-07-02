@@ -1,12 +1,23 @@
+<script lang="ts" context="module">
+  export interface Events {
+    startedPlaying: {
+      name: string;
+      stop: () => void;
+    }
+  }
+</script>
+
 <script lang="ts">
   import { createEventDispatcher, tick } from 'svelte';
 
-  const dispatch = createEventDispatcher();
+  import type { Language } from '../types';
+
+  const dispatch = createEventDispatcher<Events>();
 
   export let name = 'Stream';
   export let url = '';
-  export let getUrl: () => string;
-  export let language = '';
+  export let getUrl = () => '';
+  export let language: Language = 'english';
 
   let audioElement: HTMLAudioElement;
   let stopped = true;
@@ -88,9 +99,6 @@
 </style>
 
 <div on:click={handlePlay} class="container {containerExtraClass}">
-  <audio
-    bind:this={audioElement}
-    {src}
-  ></audio>
+  <audio bind:this={audioElement} {src}></audio>
   <div class="title {language}">{name}</div>
 </div>

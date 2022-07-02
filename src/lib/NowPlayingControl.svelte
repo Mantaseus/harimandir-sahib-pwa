@@ -1,12 +1,20 @@
+<script lang="ts" context="module">
+  export interface Events {
+    stopClicked: {};
+  }
+</script>
+
 <script lang="ts">
   import {createEventDispatcher} from 'svelte';
 
+  import type { Language } from '../types';
+
   export let name = '';
-  export let language = '';
+  export let language: Language = 'english';
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<Events>();
 
-  function handleClick(e) {
+  function handleClick() {
     dispatch('stopClicked', {});
   }
 </script>

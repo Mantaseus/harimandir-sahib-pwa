@@ -1,8 +1,10 @@
 <script lang="ts">
   import {createEventDispatcher, onMount} from 'svelte';
 
+  import type { Language } from '../types';
+
   export let name = '';
-  export let language = '';
+  export let language: Language = 'english';
   export let today = new Date();
 
   $: day = today.getDate();
@@ -16,7 +18,7 @@
     today = new Date();
   });
 
-  function handleClick(e) {
+  function handleClick() {
     dispatch('backClicked', {});
   }
 </script>

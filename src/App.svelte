@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
   import {onMount} from 'svelte';
-  import SimpleStream from './lib/SimpleStream.svelte';
+  import SimpleStream, { Events as SimpleStreamEvents } from './lib/SimpleStream.svelte';
   import RaisedButton from './lib/RaisedButton.svelte';
-  import NowPlayingControl from './lib/NowPlayingControl.svelte';
+  import NowPlayingControl, { Events as NowPlayingControlEvents } from './lib/NowPlayingControl.svelte';
   import Navigation from './lib/Navigation.svelte';
   import Hukamnama from './lib/Hukamnama.svelte';
+  import type { StreamData } from './types';
 
-  let nowPlaying = {};
+  let nowPlaying: SimpleStreamEvents['startedPlaying'] | null = null;
   let currentPage = 'main';
 
-  $: nowPlayingData = streams.filter((el) => el.name === nowPlaying.name)[0];
+  $: nowPlayingData = streams.filter((el) => el.name === nowPlaying?.name)[0];
 
   // This is used to hide the main page but prevent the stream elements from being removed
   // allowing the stream to keep running
@@ -23,7 +24,7 @@
     setPageFromLocationHash();
   })
 
-  const streams = [
+  const streams: StreamData[] = [
     {
       name: 'lwev suxo',
       language: 'punjabi',
@@ -80,59 +81,59 @@
     }
   }
 
-  function handleStartedPlaying(event) {
+  function handleStartedPlaying(event: CustomEvent<SimpleStreamEvents['startedPlaying']>) {
     handleStop();
     const playingStreamData = streams.filter((el) => el.name === event.detail.name);
     console.log(playingStreamData);
     nowPlaying = event.detail;
   }
 
-  function handleStop(event) {
-    if (nowPlaying.name) {
-      nowPlaying.stop();
+  function handleStop() {
+    if (nowPlaying?.name) {
+      nowPlaying?.stop?.();
     }
-    nowPlaying = {};
+    nowPlaying = null;
   }
 
-  function showHukamnama(event) {
+  function showHukamnama() {
     currentPage = 'hukamnama';
-    history.pushState(null, null, '#hukamnama');
+    history.pushState(undefined, '', '#hukamnama');
   }
 
-  function handleBackClicked(event) {
+  function handleBackClicked() {
     history.back();
   }
 </script>
 
 <style>
   .page-title {
-  font-family: Amrlipi;
-  padding-bottom: 16px;
-  font-size: 2em;
+    font-family: Amrlipi;
+    padding-bottom: 16px;
+    font-size: 2em;
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
   .page-title img {
-  width: 80px;
-  margin-right: 10px;
+    width: 80px;
+    margin-right: 10px;
   }
 
 	.container {
-  padding: 16px;
-  padding-bottom: 86px;
-  margin: 0 auto;
-  max-width: 800px;
+    padding: 16px;
+    padding-bottom: 86px;
+    margin: 0 auto;
+    max-width: 800px;
 	}
   .container.hidden {
-  display: none;
+    display: none;
   }
 
   main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 </style>
 
@@ -157,7 +158,7 @@
     </div>
   {/if}
 
-  {#if nowPlaying.name}
+  {#if nowPlaying?.name}
     <NowPlayingControl on:stopClicked={handleStop} {...nowPlayingData}/>
   {/if}
 </main>

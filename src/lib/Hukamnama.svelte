@@ -19,8 +19,7 @@
   }
 
   function textOfElements(html: Document, selector: string) {
-    return Array.from(html.querySelectorAll(selector))
-      .map((el: HTMLElement) => el.innerText.trim());
+    return Array.from<HTMLElement>(html.querySelectorAll(selector)).map(el => el.innerText.trim());
   }
 
   function parseMukhvaak(html: Document){

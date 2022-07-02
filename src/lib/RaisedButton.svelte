@@ -1,6 +1,8 @@
 <script lang="ts">
+  import type { Language } from "../types";
+
   export let text = '<placeholder>';
-  export let language;
+  export let language: Language = 'english';
 </script>
 
 <style>
