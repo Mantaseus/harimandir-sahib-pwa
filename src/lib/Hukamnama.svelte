@@ -6,11 +6,11 @@
   let hukamnamaPromise = getHukamnama();
 
   async function getHukamnama() {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
 
-    return fetch(`/api/hukamnama?day=${day}&month=${month}&year=${year}`, { method: 'GET' })
+    return fetch(`/raw_hukamnamas/${year}${month}${day}.html`, { method: 'GET' })
       .then(res => res.text())
       .then(text => new DOMParser().parseFromString(text, 'text/html'))
       .then(res => { console.log({ textAsHTML: res }); return res; })
