@@ -13,7 +13,7 @@ export const streams: StreamData[] = [
     name: 'lwev suxo',
     language: 'punjabi',
     getUrl: () => {
-      return 'http://live16.sgpc.net:8000/;nocache=889869'
+      return 'https://live.sgpc.net:8443/;nocache=889869';
     }
   },
   {
@@ -30,8 +30,7 @@ export const streams: StreamData[] = [
       const monthString = month.toString().padStart(2,'0');
       const yearString = year.toString().slice(-2);
 
-      const streamLink = `http://old.sgpc.net/audio/SGPCNET${dayString}${monthString}${yearString}.mp3`;
-      return streamLink;
+      return `https://old.sgpc.net/audio/SGPCNET${dayString}${monthString}${yearString}.mp3`;
     }
   },
   {
@@ -48,8 +47,7 @@ export const streams: StreamData[] = [
       const monthString = month.toString().padStart(2,'0');
       const yearString = year.toString().slice(-2);
 
-      const streamLink = `http://old.sgpc.net/oldkatha/katha${dayString}${monthString}${yearString}.mp3`;
-      return streamLink;
+      return `https://old.sgpc.net/oldkatha/katha${dayString}${monthString}${yearString}.mp3`;
     }
   },
 ];
